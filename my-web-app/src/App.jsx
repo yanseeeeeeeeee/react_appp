@@ -3,25 +3,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
 
-function App() {
-  const sendApp = () => {
-    window.ReactNativeWebView.postMessage(
-      //создания объекта json которые мы отправляем, (строка)
-      JSON.stringify({
-        type:"test",
-        message:"привет с сайта"
-      }) 
-    )
-  }
+import { Routes, Route } from "react-router-dom"
 
+export default function App() {
   return (
-    <div>
-      <h1>Web app</h1>
-      <button onClick={sendApp}>
-        Отпрвляем
-      </button>
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<Login/>}/>
+      <Route path="/register" element={<Register/>}/>
+      <Route path="/home" element={<Home/>}/>
+    </Routes>
+  )
 }
-export default App;
