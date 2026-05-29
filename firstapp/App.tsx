@@ -19,7 +19,6 @@ export default function App() { //главная функция для прор�
     <SafeAreaView style = {{flex: 1, padding: 10}}>
       <StatusBar hidden/>
 
-      <Text>Сообщение: {msg}</Text>
 
       <WebView
       //связали с ссылкой
