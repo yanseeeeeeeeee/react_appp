@@ -1,10 +1,22 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react"; 
 import { useNavigate } from "react-router-dom"; //преход между страницами
+import { auth } from "../firebase";
 
 export default function Login() {
     const [email, setEmail] = useState(""); //переменная для хранения состояния
     const[password, setPassword] = useState("");
     const navigate = useNavigate(); //переменная для перехода между страницами
+
+    //функция для входа пользователя в систему
+    const handleLogin = async () => {
+        try {
+            const userIn = await signInWithEmailAndPassword(auth, email, password);
+            navigate("/home");
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     //показываем на экране
     return (
@@ -24,7 +36,7 @@ export default function Login() {
                 />
 
                 <button 
-                onClick={() => navigate("/home")}>
+                onClick={handleLogin}>
                     Войти
                 </button>
 

@@ -1,12 +1,18 @@
-body{
+html, body, #root{
   margin:0;
+  padding:0;
+  width:100%;
+  height: 100%;
   font-family: Arial, sans-serif;
-  background: #0f172a;
+  background-color: #0f172a;
   color: white;
+   overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 .container{
-  height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,4 +55,12 @@ button:hover{
   color:#60a5fa;
   cursor: pointer;
   font-size: 14px;
+}
+* {
+  box-sizing: border-box;
+}
+
+.card h2 {
+  color: white;
+  margin: 0;
 }
