@@ -24,7 +24,7 @@ export default function App() { //главная функция для прор�
       <WebView
       //связали с ссылкой
       ref={webViewRef} 
-      source={{uri: 'http://192.168.0.41:5173/'}}
+      source={{uri: 'https://network-pi-neon.vercel.app/'}}
       onMessage={handleMessage}
       style={{ flex: 1}}
       />
