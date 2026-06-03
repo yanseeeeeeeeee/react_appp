@@ -10,11 +10,37 @@ export default function Register() {
     const navigate = useNavigate();
 
     const handleRegister = async () => {
+
+        if (!email.trim()) {
+            alert("Введите email");
+            return;
+        }
+
+        if (!password.trim()) {
+            alert("Введите пароль");
+            return;
+        }
+
+        if (password.length <6 ) {
+            alert("Пароль должен содержать минимум 6 символов");
+            return;
+        }
+
         try{
              const userCreate = await createUserWithEmailAndPassword(auth, email,password);
              navigate("/home");
          } catch (error) {
-            alert(error.message);
+            if (error.code === "auth/email-already-in-use") {
+                alert("Пользователь уже существует");
+                return;
+            }
+
+            if (error.code === "auth/invalid-email") {
+                alert("Неккоректный email");
+                return;
+            }
+
+            alert("Ошибка регистрации");
          }
     };
 
@@ -28,7 +54,8 @@ export default function Register() {
                 onChange={(event) => setEmail(event.target.value)}/>
 
                 <input 
-                placeholder="Password"
+                placeholder="Пароль"
+                type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}/>
 

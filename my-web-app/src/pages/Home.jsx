@@ -7,28 +7,33 @@ import { auth } from "../firebase";
 export default function Home() {
 
     const navigate = useNavigate();
+    const user = auth.currentUser;
+
     const logout = async () => {
       try {
         await signOut(auth);
-        navigate("/");
       } catch (error) {
         alert(error.message);
       }
     };
 
-    useEffect(() => {
-
-        const user = localStorage.getItem("user");
-        if(!user) {
-            navigate("/");
-        }
-    }, []);
-
     return (
-        <div>
-            <h1>Home</h1>
-            <button onClick={logout}>Выйти</button>
-        </div>
-    )
+        <div className="container">
 
+            <div className="card">
+
+                <h2>Главная</h2>
+                <p>Вы вошли как:</p>
+                <p>
+                    <strong>{user?.email}</strong>
+                </p>
+
+                <button onClick={logout}>
+                    Выйти
+                </button>
+
+            </div>
+
+        </div>
+    );
 }

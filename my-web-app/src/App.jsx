@@ -9,7 +9,10 @@ import Home from "./pages/Home";
 import { useEffect } from 'react';
 
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth';
+
+import ProtectedRoute from './routes/ProtectedRoute';
+import AuthRoute from './routes/AuthRoute';
 
 import { auth } from './firebase';
 
@@ -30,13 +33,30 @@ export default function App() {
 
   }, []);
 
-  if (loading) return null;
+  if (loading) {
+    return <h2>Загрузка...</h2>;
+  }
 
   return (
     <Routes>
-      <Route path="/" element={!user ? <Login/> : <Home/>}/>
-      <Route path="/register" element={!user ? <Register/> : <Home/>}/>
-      <Route path="/home" element={user ? <Home/> : <Login/>}/>
+      <Route path="/" element={
+        <AuthRoute user ={user}>
+          <Login/>
+        </AuthRoute>
+      }
+        />
+      <Route path="/register" element={
+        <AuthRoute user={user}>
+          <Register />
+        </AuthRoute>
+        }
+        />
+      <Route path="/home" element={
+        <ProtectedRoute user={user}>
+          <Home/>
+        </ProtectedRoute>
+        }
+        />
     </Routes>
   )
 }

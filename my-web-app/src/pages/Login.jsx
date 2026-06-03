@@ -10,11 +10,24 @@ export default function Login() {
 
     //функция для входа пользователя в систему
     const handleLogin = async () => {
+        if (!email.trim()) {
+            alert("Введите email");
+            return;
+        }
+
+        if(!password.trim()) {
+            alert("Введите пароль");
+            return;
+        }
         try {
             const userIn = await signInWithEmailAndPassword(auth, email, password);
             navigate("/home");
         } catch (error) {
-            alert(error.message);
+            if (error.code === "auth/invalid-credential") {
+                alert("Неверный email или пароль");
+                return;
+            }
+            alert("Ошибка входа");
         }
     };
 
