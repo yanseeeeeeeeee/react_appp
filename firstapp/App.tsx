@@ -21,6 +21,29 @@ export default function App() { //главная функция для прор�
       const fcmToken = await messaging().getToken();
       console.log('FCM token:', fcmToken);
 
+      await fetch('https://network-pi-neon.vercel.app/api/save-fcm-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        token: fcmToken,
+        }),
+      });
+
+      messaging().onTokenRefresh(async token => {
+        await fetch('https://network-pi-neon.vercel.app/api/save-fcm-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        token,
+        userId: 'default-user',
+        }),
+        });
+      });
+
       messaging().onMessage(async remoteMessage => {
         Alert.alert(
           remoteMessage.notification?.title || 'Новое уведомление' ,
